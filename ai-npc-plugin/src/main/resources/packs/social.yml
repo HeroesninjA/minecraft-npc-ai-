@@ -1,0 +1,269 @@
+# ========================================
+# Feature Pack: Social
+# Trasaturi si comportamente sociale
+# ========================================
+
+id: social
+name: "Social"
+description: "Pachet de trasaturi si comportamente sociale"
+
+# ==================== TRAITS ====================
+traits:
+  # Trasaturi de relatie
+  romantic:
+    name: "Romantic"
+    description: "Cauta iubirea si apreciaza gesturile romantice"
+    modifiers:
+      action_scores:
+        FLIRT: 30
+        COMPLIMENT: 20
+        GIVE_ITEM: 15
+        CELEBRATE: 15
+      emotions:
+        happiness: 0.2
+        
+  loyal:
+    name: "Loial"
+    description: "Devotat prietenilor si familiei"
+    modifiers:
+      action_scores:
+        DEFEND: 25
+        HELP: 20
+        FOLLOW_PLAYER: 15
+        SOCIALIZE: 10
+        GOSSIP: -20
+      emotions:
+        happiness: 0.15
+        
+  jealous:
+    name: "Gelos"
+    description: "Sufera cand altii au mai mult"
+    modifiers:
+      action_scores:
+        OBSERVE: 20
+        ARGUE: 15
+        INSULT: 10
+        CELEBRATE: -20
+        COMPLIMENT: -15
+      emotions:
+        anger: 0.2
+        sadness: 0.15
+        
+  empathetic:
+    name: "Empatic"
+    description: "Simte emotiile altora profund"
+    modifiers:
+      action_scores:
+        HELP: 25
+        LISTEN: 20
+        APOLOGIZE: 15
+        MOURN: 15
+        CELEBRATE: 10
+      emotions:
+        sadness: 0.1
+        happiness: 0.1
+        
+  charismatic:
+    name: "Carismatic"
+    description: "Atrage si influenteaza pe altii usor"
+    modifiers:
+      action_scores:
+        GREET: 25
+        SOCIALIZE: 30
+        TALK: 20
+        TRADE: 15
+        OFFER_QUEST: 20
+        FLIRT: 15
+      emotions:
+        happiness: 0.25
+        
+  introvert:
+    name: "Introvertit"
+    description: "Prefera singuratatea si interactiunile limitate"
+    modifiers:
+      action_scores:
+        SOCIALIZE: -25
+        GREET: -15
+        TALK: -10
+        REST: 20
+        OBSERVE: 15
+        MEDITATE: 20
+      emotions:
+        fear: 0.1
+        
+  extrovert:
+    name: "Extrovertit"
+    description: "Iubeste compania si socializarea"
+    modifiers:
+      action_scores:
+        SOCIALIZE: 30
+        GREET: 20
+        TALK: 15
+        CELEBRATE: 20
+        REST: -15
+      emotions:
+        happiness: 0.2
+        
+  manipulative:
+    name: "Manipulator"
+    description: "Foloseste pe altii pentru propriile scopuri"
+    modifiers:
+      action_scores:
+        TALK: 15
+        TRADE: 20
+        FLIRT: 15
+        GOSSIP: 20
+        HELP: -20
+        GIVE_ITEM: -25
+      emotions:
+        happiness: 0.1
+        
+  honest:
+    name: "Onest"
+    description: "Spune mereu adevarul"
+    modifiers:
+      action_scores:
+        GOSSIP: -30
+        WARN: 20
+        SHARE_NEWS: 15
+        APOLOGIZE: 20
+        INSULT: -15
+      emotions:
+        happiness: 0.1
+        
+  secretive:
+    name: "Secret"
+    description: "Pastreaza informatiile pentru sine"
+    modifiers:
+      action_scores:
+        SHARE_NEWS: -25
+        GOSSIP: -20
+        TELL_STORY: -15
+        OBSERVE: 20
+        LISTEN: 15
+      emotions:
+        fear: 0.1
+
+# ==================== RELATII ====================
+# Definiri pentru tipuri de relatii
+relationships:
+  stranger:
+    name: "Strain"
+    trust_level: 0
+    dialogue_formality: "formal"
+    
+  acquaintance:
+    name: "Cunoscut"
+    trust_level: 25
+    dialogue_formality: "semi-formal"
+    
+  friend:
+    name: "Prieten"
+    trust_level: 50
+    dialogue_formality: "informal"
+    
+  close_friend:
+    name: "Prieten apropiat"
+    trust_level: 75
+    dialogue_formality: "casual"
+    
+  family:
+    name: "Familie"
+    trust_level: 90
+    dialogue_formality: "familiar"
+    
+  spouse:
+    name: "Sot/Sotie"
+    trust_level: 100
+    dialogue_formality: "intimate"
+    
+  rival:
+    name: "Rival"
+    trust_level: -25
+    dialogue_formality: "cold"
+    
+  enemy:
+    name: "Dusman"
+    trust_level: -75
+    dialogue_formality: "hostile"
+
+# ==================== EVENIMENTE SOCIALE ====================
+social_events:
+  wedding:
+    name: "Nunta"
+    participants:
+      - "BRIDE"
+      - "GROOM"
+      - "PRIEST"
+      - "GUESTS"
+    phases:
+      - "PREPARATION"
+      - "CEREMONY"
+      - "CELEBRATION"
+    emotions_boost:
+      happiness: 0.5
+      
+  funeral:
+    name: "Inmormantare"
+    participants:
+      - "FAMILY"
+      - "FRIENDS"
+      - "PRIEST"
+    phases:
+      - "MOURNING"
+      - "CEREMONY"
+      - "COMFORT"
+    emotions_boost:
+      sadness: 0.6
+      
+  festival:
+    name: "Festival"
+    participants:
+      - "HOST"
+      - "ENTERTAINERS"
+      - "VISITORS"
+    phases:
+      - "OPENING"
+      - "CELEBRATION"
+      - "CLOSING"
+    emotions_boost:
+      happiness: 0.4
+      
+  market_day:
+    name: "Zi de targ"
+    participants:
+      - "MERCHANTS"
+      - "BUYERS"
+      - "ENTERTAINERS"
+    phases:
+      - "SETUP"
+      - "TRADING"
+      - "CLOSING"
+    emotions_boost:
+      happiness: 0.2
+
+# ==================== DIALOGURI SOCIALE ====================
+dialogues:
+  relationship_building:
+    - "Ma bucur ca ne-am intalnit!"
+    - "Ar trebui sa petrecem mai mult timp impreuna."
+    - "Esti o persoana interesanta."
+    - "Cred ca putem fi prieteni buni."
+    
+  conflict:
+    - "Nu sunt de acord cu tine!"
+    - "Cum poti spune asa ceva?"
+    - "Ma dezamagesti..."
+    - "Cred ca ar trebui sa ne calmam."
+    
+  reconciliation:
+    - "Imi pare rau pentru ce am spus."
+    - "Putem sa o luam de la capat?"
+    - "Am gresit, recunosc."
+    - "Te rog, iarta-ma."
+    
+  celebration:
+    - "Ce veste minunata!"
+    - "Trebuie sa sarbatorim!"
+    - "Sunt atat de fericit pentru tine!"
+    - "Aceasta e o zi de neuitat!"

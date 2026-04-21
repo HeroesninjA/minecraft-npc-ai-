@@ -1,0 +1,25 @@
+name: AINPCPlugin
+version: ${project.version}
+main: ro.ainpc.AINPCPlugin
+api-version: '1.20'
+authors: [v0]
+description: Plugin Minecraft cu NPC-uri AI care au poveste, emotii, amintiri si dialog realist
+website: https://v0.dev
+
+commands:
+  ainpc:
+    description: Comanda principala pentru gestionarea NPC-urilor AI
+    usage: /ainpc <create|delete|info|family|mood|list|reload>
+    permission: ainpc.admin
+    aliases: [npc, ai]
+
+permissions:
+  ainpc.admin:
+    description: Permite accesul la toate comenzile admin
+    default: op
+  ainpc.talk:
+    description: Permite jucatorilor sa vorbeasca cu NPC-urile
+    default: true
+  ainpc.info:
+    description: Permite vizualizarea informatiilor despre NPC-uri
+    default: true
