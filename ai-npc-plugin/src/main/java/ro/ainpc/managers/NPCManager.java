@@ -354,6 +354,10 @@ public class NPCManager {
         return npcsByUuid.get(uuid);
     }
 
+    public AINPC getNPCByUUID(UUID uuid) {
+        return getNPCByUuid(uuid);
+    }
+
     public AINPC getNPCById(int id) {
         return npcsById.get(id);
     }

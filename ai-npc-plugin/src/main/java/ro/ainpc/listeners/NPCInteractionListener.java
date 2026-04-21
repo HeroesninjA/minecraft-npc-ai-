@@ -235,7 +235,7 @@ public class NPCInteractionListener implements Listener {
         } else if (affection > -0.3) {
             return "Tu iar? Ce vrei?";
         } else {
-            return "*oftaza* Ce vrei de la mine?";
+            return "*oftez* Ce vrei de la mine?";
         }
     }
 

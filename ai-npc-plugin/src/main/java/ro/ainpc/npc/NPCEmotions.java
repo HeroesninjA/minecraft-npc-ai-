@@ -86,7 +86,7 @@ public class NPCEmotions {
                 applyEmotion("happiness", 0.1 * multiplier);
                 applyEmotion("trust", 0.05 * multiplier);
             }
-            case "compliment", "compliment" -> {
+            case "compliment" -> {
                 applyEmotion("happiness", 0.2 * multiplier);
                 applyEmotion("trust", 0.1 * multiplier);
             }
@@ -114,7 +114,7 @@ public class NPCEmotions {
                 applyEmotion("happiness", 0.15 * multiplier);
                 applyEmotion("surprise", 0.1 * multiplier);
             }
-            case "secret", "secret" -> {
+            case "secret" -> {
                 applyEmotion("trust", 0.2 * multiplier);
                 applyEmotion("anticipation", 0.15 * multiplier);
             }
@@ -124,6 +124,26 @@ public class NPCEmotions {
                 applyEmotion("disgust", 0.2 * multiplier);
             }
         }
+    }
+
+    public void adjustHappiness(double delta) {
+        setHappiness(happiness + delta);
+        lastUpdated = System.currentTimeMillis();
+    }
+
+    public void adjustSadness(double delta) {
+        setSadness(sadness + delta);
+        lastUpdated = System.currentTimeMillis();
+    }
+
+    public void adjustAnger(double delta) {
+        setAnger(anger + delta);
+        lastUpdated = System.currentTimeMillis();
+    }
+
+    public void adjustFear(double delta) {
+        setFear(fear + delta);
+        lastUpdated = System.currentTimeMillis();
     }
 
     /**

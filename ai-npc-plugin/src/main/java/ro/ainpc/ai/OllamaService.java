@@ -228,7 +228,7 @@ public class OllamaService {
                 "Hm, interesant ce spui tu."
             };
             case "sadness" -> responses = new String[]{
-                "*ofteaza* Nu e cea mai buna zi pentru mine...",
+                "*oftez* Nu e cea mai buna zi pentru mine...",
                 "Ma simt cam trist astazi.",
                 "Imi pare rau, nu sunt in apele mele."
             };
@@ -266,6 +266,36 @@ public class OllamaService {
                 return response.isSuccessful();
             } catch (IOException e) {
                 return false;
+            }
+        });
+    }
+
+    /**
+     * Verifica sincron daca Ollama este disponibil (pentru verificari rapide)
+     */
+    public boolean isAvailable() {
+        Request request = new Request.Builder()
+            .url(baseUrl + "/api/tags")
+            .get()
+            .build();
+
+        try (Response response = httpClient.newCall(request).execute()) {
+            return response.isSuccessful();
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Genereaza un raspuns asincron (wrapper simplificat)
+     */
+    public CompletableFuture<String> generateAsync(String prompt) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return callOllama(prompt);
+            } catch (IOException e) {
+                plugin.getLogger().warning("Eroare la generarea AI: " + e.getMessage());
+                return null;
             }
         });
     }

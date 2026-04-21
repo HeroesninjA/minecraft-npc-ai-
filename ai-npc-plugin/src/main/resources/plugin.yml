@@ -1,7 +1,7 @@
 name: AINPCPlugin
 version: ${project.version}
 main: ro.ainpc.AINPCPlugin
-api-version: '1.20'
+api-version: '1.21'
 authors: [v0]
 description: Plugin Minecraft cu NPC-uri AI care au poveste, emotii, amintiri si dialog realist
 website: https://v0.dev

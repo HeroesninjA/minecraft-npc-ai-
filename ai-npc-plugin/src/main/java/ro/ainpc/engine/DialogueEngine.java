@@ -290,12 +290,12 @@ public class DialogueEngine {
             return DialogueIntent.QUEST_OFFER;
         }
         
-        // Selecteaza bazat pe emotia dominanta
-        return switch (dominantEmotion) {
-            case "ANGRY" -> DialogueIntent.ANGRY;
-            case "SAD" -> DialogueIntent.SAD;
-            case "HAPPY" -> DialogueIntent.HAPPY;
-            case "FEAR" -> DialogueIntent.SCARED;
+        // Selecteaza bazat pe emotia dominanta (NPCEmotions returneaza lowercase)
+        return switch (dominantEmotion.toLowerCase()) {
+            case "anger" -> DialogueIntent.ANGRY;
+            case "sadness" -> DialogueIntent.SAD;
+            case "happiness" -> DialogueIntent.HAPPY;
+            case "fear" -> DialogueIntent.SCARED;
             default -> DialogueIntent.GREET;
         };
     }

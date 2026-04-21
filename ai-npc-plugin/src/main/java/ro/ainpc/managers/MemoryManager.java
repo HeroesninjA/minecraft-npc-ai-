@@ -210,6 +210,32 @@ public class MemoryManager {
         createMemory(npc, player, "help", content, 0.4, 3);
     }
 
+    public void addScenarioMemory(java.util.UUID npcUuid, String scenarioType, String role) {
+        AINPC npc = plugin.getNpcManager().getNPCByUuid(npcUuid);
+        if (npc == null) {
+            return;
+        }
+
+        String sql = """
+            INSERT INTO npc_memories
+            (npc_id, player_uuid, player_name, memory_type, content, emotional_impact, importance, expires_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now', '+90 days'))
+        """;
+
+        try (PreparedStatement stmt = plugin.getDatabaseManager().prepareStatement(sql)) {
+            stmt.setInt(1, npc.getDatabaseId());
+            stmt.setString(2, "scenario:" + scenarioType.toLowerCase());
+            stmt.setString(3, "Scenario");
+            stmt.setString(4, "scenario");
+            stmt.setString(5, "Am participat la scenariul " + scenarioType + " cu rolul " + role + ".");
+            stmt.setDouble(6, 0.2);
+            stmt.setInt(7, 3);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            plugin.getLogger().warning("Eroare la salvarea amintirii de scenariu: " + e.getMessage());
+        }
+    }
+
     /**
      * Verifica daca NPC-ul are amintiri despre un jucator
      */

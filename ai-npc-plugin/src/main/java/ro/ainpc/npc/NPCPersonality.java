@@ -70,11 +70,11 @@ public class NPCPersonality {
             case "jester", "bufon" -> new NPCPersonality(0.8, 0.3, 0.9, 0.7, 0.4);
             case "caregiver", "ingrijitor" -> new NPCPersonality(0.5, 0.7, 0.6, 0.9, 0.4);
             case "explorer", "explorator" -> new NPCPersonality(0.9, 0.4, 0.6, 0.5, 0.3);
-            case "rebel", "rebel" -> new NPCPersonality(0.7, 0.3, 0.5, 0.3, 0.6);
+            case "rebel" -> new NPCPersonality(0.7, 0.3, 0.5, 0.3, 0.6);
             case "lover", "romantic" -> new NPCPersonality(0.7, 0.5, 0.7, 0.8, 0.5);
-            case "creator", "creator" -> new NPCPersonality(0.9, 0.6, 0.5, 0.6, 0.4);
+            case "creator" -> new NPCPersonality(0.9, 0.6, 0.5, 0.6, 0.4);
             case "ruler", "conducator" -> new NPCPersonality(0.5, 0.9, 0.6, 0.4, 0.3);
-            case "magician", "magician" -> new NPCPersonality(0.9, 0.5, 0.5, 0.5, 0.4);
+            case "magician" -> new NPCPersonality(0.9, 0.5, 0.5, 0.5, 0.4);
             case "innocent", "inocent" -> new NPCPersonality(0.4, 0.5, 0.6, 0.9, 0.2);
             case "orphan", "orfan" -> new NPCPersonality(0.4, 0.5, 0.4, 0.6, 0.7);
             case "warrior", "razboinic" -> new NPCPersonality(0.4, 0.8, 0.5, 0.3, 0.4);
@@ -186,7 +186,7 @@ public class NPCPersonality {
             case "gossip", "barfa" -> extraversion * 0.6 + (1 - conscientiousness) * 0.4;
             case "work", "munca" -> conscientiousness;
             case "feelings", "sentimente" -> (agreeableness + neuroticism) / 2;
-            case "conflict", "conflict" -> (1 - agreeableness) * 0.6 + neuroticism * 0.4;
+            case "conflict" -> (1 - agreeableness) * 0.6 + neuroticism * 0.4;
             case "humor", "umor" -> extraversion * 0.5 + openness * 0.5;
             default -> 0.5;
         };

@@ -84,7 +84,7 @@ public class NPCContext {
         }
         
         // Biom
-        this.biome = npcLocation.getBlock().getBiome().name();
+        this.biome = npcLocation.getBlock().getBiome().toString().toUpperCase(Locale.ROOT);
         
         // Verifica daca e in interior (simplificat)
         this.isIndoors = npcLocation.getBlock().getLightFromSky() < 10;

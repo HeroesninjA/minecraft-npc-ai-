@@ -1,6 +1,7 @@
 package ro.ainpc;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.command.PluginCommand;
 import ro.ainpc.ai.OllamaService;
 import ro.ainpc.commands.AINPCCommand;
 import ro.ainpc.commands.AINPCTabCompleter;
@@ -84,8 +85,14 @@ public class AINPCPlugin extends JavaPlugin {
         // Inregistreaza comenzile
         getLogger().info("Inregistrare comenzi...");
         AINPCCommand command = new AINPCCommand(this);
-        getCommand("ainpc").setExecutor(command);
-        getCommand("ainpc").setTabCompleter(new AINPCTabCompleter(this));
+        PluginCommand ainpcCommand = getCommand("ainpc");
+        if (ainpcCommand == null) {
+            getLogger().severe("Comanda 'ainpc' nu a fost gasita in plugin.yml. Pluginul se opreste.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        ainpcCommand.setExecutor(command);
+        ainpcCommand.setTabCompleter(new AINPCTabCompleter(this));
         
         // Inregistreaza listenerele
         getLogger().info("Inregistrare listenere...");
@@ -96,7 +103,7 @@ public class AINPCPlugin extends JavaPlugin {
         startScheduledTasks();
         
         getLogger().info("========================================");
-        getLogger().info("AI NPC Plugin v" + getDescription().getVersion() + " activat!");
+        getLogger().info("AI NPC Plugin v" + getPluginMeta().getVersion() + " activat!");
         getLogger().info("NPC-uri incarcate: " + npcManager.getNPCCount());
         getLogger().info("========================================");
     }

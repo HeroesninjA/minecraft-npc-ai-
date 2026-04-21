@@ -1,5 +1,7 @@
 package ro.ainpc.npc;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -16,6 +18,8 @@ import java.util.UUID;
  * Reprezinta un NPC cu inteligenta artificiala
  */
 public class AINPC {
+
+    private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacySection();
 
     private final AINPCPlugin plugin;
     
@@ -80,7 +84,7 @@ public class AINPC {
         
         // Folosim Villager ca baza pentru NPC
         bukkitEntity = world.spawn(location, Villager.class, villager -> {
-            villager.setCustomName(getColoredDisplayName());
+            villager.customName(getColoredDisplayNameComponent());
             villager.setCustomNameVisible(true);
             villager.setAI(false);
             villager.setInvulnerable(true);
@@ -210,12 +214,16 @@ public class AINPC {
         return emotionColor + nameToShow;
     }
 
+    public Component getColoredDisplayNameComponent() {
+        return LEGACY_SERIALIZER.deserialize(getColoredDisplayName());
+    }
+
     /**
      * Actualizeaza numele afisat bazat pe emotie
      */
     public void updateDisplayName() {
         if (bukkitEntity != null && spawned) {
-            bukkitEntity.setCustomName(getColoredDisplayName());
+            bukkitEntity.customName(getColoredDisplayNameComponent());
         }
     }
 

@@ -126,10 +126,29 @@ public enum NPCAction {
      */
     public boolean isFriendly() {
         return switch (this) {
-            case GREET, THANK, COMPLIMENT, GIVE_ITEM, HELP, CELEBRATE, 
+            case GREET, THANK, COMPLIMENT, GIVE_ITEM, CELEBRATE,
                  OFFER_QUEST, GIVE_REWARD, GUIDE_PLAYER, SHARE_NEWS, TELL_STORY -> true;
             default -> false;
         };
+    }
+
+    /**
+     * Verifica daca actiunea este de natura sociala.
+     * Pastram numele metodei pentru compatibilitate cu DecisionEngine.
+     */
+    public boolean isSocialState() {
+        return switch (getCategory()) {
+            case INTERACTION, SOCIAL -> true;
+            default -> false;
+        };
+    }
+
+    /**
+     * Verifica daca actiunea este legata de munca.
+     * Pastram numele metodei pentru compatibilitate cu DecisionEngine.
+     */
+    public boolean isWorkState() {
+        return getCategory() == ActionCategory.WORK;
     }
 
     /**
