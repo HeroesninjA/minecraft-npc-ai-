@@ -1,0 +1,191 @@
+AINPC Plugin - Documentatie de referinta
+========================================
+
+Rol
+- Acest fisier este referinta rapida pentru plugin, fluxul runtime si structura codului.
+- Modifica acest fisier doar cand utilizatorul mentioneaza explicit: docs.text
+
+Scop plugin
+- Plugin Minecraft Paper/Spigot cu NPC-uri AI construite peste entitati de tip Villager.
+- Fiecare NPC are profil, memorie, emotii, familie, context de lume si dialog generat local prin Ollama.
+
+Viziune produs
+- Directia proiectului este sa evolueze din plugin AI intr-un motor universal de NPC AI.
+- Tinta este o platforma de gameplay pentru NPC-uri inteligente, lumi reactive, scenarii personalizabile si extensibilitate prin addonuri.
+
+Stare actuala vs directie
+- Documentatia descrie atat implementarea actuala, cat si arhitectura-tinta.
+- Daca apare o diferenta intre codul actual si viziunea de platforma, codul actual are prioritate ca stare livrata, iar viziunea ramane directie de dezvoltare.
+- Componente ca quest system complet, world admin complet, economie extinsa, reputatie globala si API public de addonuri trebuie tratate ca tinta arhitecturala pana cand sunt livrate explicit in cod.
+
+Puncte de intrare
+- Clasa principala: src/src/main/java/ro/ainpc/AINPCPlugin.java
+- Descriptor plugin: src/src/main/resources/plugin.yml
+- Configurare principala: src/src/main/resources/config.yml
+
+Flux general
+1. Pluginul porneste si incarca configuratia.
+2. Se initializeaza baza de date, Ollama, feature pack-urile si serviciile centrale.
+3. Se initializeaza managerii de NPC, memorie, emotii si familie.
+4. Se incarca NPC-urile persistate si se descopera villagerii existenti din lumi.
+5. Se inregistreaza comanda `/ainpc` si listenerele Bukkit.
+6. Ruleaza task-uri periodice pentru decay emotional, curatarea memoriilor si autosave.
+
+Servicii centrale
+- DialogManager: serviciu unic al pluginului pentru cooldown, istoric, relatie si generare raspuns.
+- OllamaService: construieste promptul, apeleaza modelul si aplica fallback local.
+- FeaturePackLoader: incarca pachete tematice si consensul topologic folosit in prompt.
+
+Arhitectura tinta
+- Core: baza universala, independenta de scenarii si orientata pe sisteme reutilizabile.
+- Scenarii: addonuri care definesc lumea, regulile si tonul unui univers de joc.
+- Feature addons: module care adauga sisteme tematice sau mecanici noi.
+- Integration addons: module de interoperabilitate cu alte pluginuri sau servicii.
+
+Core universal
+- AI engine
+- context system
+- dialog system
+- quest system
+- world admin pentru regiuni si noduri
+- economie, reputatie si progres
+- API pentru addonuri
+
+Scenarii si addonuri
+- Scenariu principal: defineste lumea de baza, de exemplu regate medievale, traineri si creaturi, dungeon/adventure sau sci-fi.
+- Feature addon: adauga sisteme precum razboi, religie, magie sau alte layere de gameplay.
+- Integration addon: ofera compatibilitate cu pluginuri externe precum Vault, WorldEdit si sisteme similare.
+
+Tipuri de lume
+- statica
+- dinamica finita
+- dinamica deschisa
+- Recomandarea de design este dinamica finita, pentru control mai bun asupra performantei si coerentei narative.
+
+Povestire
+- Poveste globala: rara, controlata si folosita pentru directia mare a lumii.
+- Povestiri distribuite: modelul principal, legat de locatii precum sate, castele, pesteri sau dungeonuri.
+- Fiecare locatie poate avea StoryState, StoryPool si un mod de rulare: static, evolutiv sau rotativ.
+
+World Admin
+- Permite definirea manuala a hartii prin regiuni si noduri de administratie.
+- Regiunile pot reprezenta sate, castele, dungeonuri sau alte zone semnificative.
+- Nodurile pot controla spawn de NPC, trigger de quest, boss, interactiuni speciale sau puncte de progres.
+- Acest sistem este gandit in special pentru harti preconstruite.
+
+Sisteme gameplay tinta
+- economie: bani, monede si compatibilitate optionala cu Vault
+- experienta: nivel, progres si skill-uri
+- reputatie: pe sat, regiune sau factiune
+- combat: statistici, skill-uri si reactii contextuale
+
+API si extensibilitate
+- API public deschis pentru scenarii si addonuri.
+- Core-ul si API-ul pot ramane deschise, iar continutul se diferentiaza prin calitatea scenariilor si pachetelor.
+- Modelul tinta este ecosistem deschis cu posibilitatea de scenarii demo gratuite si scenarii avansate.
+
+Structura cod
+- ro.ainpc
+  - AINPCPlugin: bootstrap, lifecycle, scheduler, acces la servicii.
+- ro.ainpc.ai
+  - DialogManager: orchestration pentru schimbul de replici.
+  - OllamaService: prompt, generare si analiza rapida de sentiment.
+- ro.ainpc.commands
+  - AINPCCommand: create, delete, info, list, family, mood, tp, reload, test.
+  - AINPCTabCompleter: completare pentru comenzile pluginului.
+- ro.ainpc.database
+  - DatabaseManager: initializare si acces la persistenta SQLite.
+- ro.ainpc.engine
+  - DecisionEngine: decizii comportamentale.
+  - DialogueEngine: compunere de context si reguli de dialog.
+  - FeaturePackLoader: pachete tematice si consens contextual.
+  - ScenarioEngine: logica de scenarii.
+- ro.ainpc.listeners
+  - NPCInteractionListener: click, pornire conversatie, chat privat, cleanup la quit.
+  - PlayerJoinListener: recunoastere si reactie a NPC-urilor la intrarea jucatorului.
+  - VillagerLifecycleListener: transformare automata Villager -> NPC.
+- ro.ainpc.managers
+  - NPCManager: registru NPC, load/save, spawn/attach si descoperire villageri.
+  - MemoryManager: memorii per jucator/NPC.
+  - EmotionManager: emotii, decay si raportare.
+  - FamilyManager: relatii si familie.
+- ro.ainpc.npc
+  - AINPC: model principal al NPC-ului.
+  - NPCContext: context de lume si situatie curenta.
+  - NPCState, NPCAction, NPCEmotions, NPCPersonality: modele suport.
+- ro.ainpc.topology
+  - TopologyCategory: categorie normalizata pentru mediul NPC-ului.
+- ro.ainpc.utils
+  - MessageUtils: formatari si mesaje configurabile.
+
+Concepte cheie
+- Villager = baza runtime pentru NPC.
+- AINPC = modelul logic persistat si orchestrat.
+- NPCContext = stare de mediu, jucator activ, ultima interactiune si topologie.
+- Feature Pack = pachet YAML cu reguli tematice, ton si topologii.
+- Topology Category = abstractizare peste biome si context interior/exterior.
+- Core universal = platforma independenta de un singur scenariu.
+- Scenariu = pachet major care defineste lumea, regulile si povestea.
+- Addon = extensie care adauga mecanici sau integrari peste core si scenariu.
+
+Contract de thread
+- Operatiile care ating entitati Bukkit ruleaza pe thread-ul principal.
+- Persistenta in baza de date poate rula asincron, dar dupa sincronizarea starii runtime.
+- Evenimentele de chat trebuie sa mute inapoi pe main-thread orice interactiune vizibila cu jucatorul sau NPC-ul.
+
+Moduri de rulare
+- Standalone: fara servicii externe, potrivit pentru servere mici sau hosturi simple.
+- Hybrid: servicii externe optionale, folosite gradual dupa nevoie.
+- Advanced: servere dedicate, AI extern, DB extern, sync si workers.
+
+Servicii externe pentru scalare
+- AI service
+- PostgreSQL/MySQL
+- Redis sau alte mecanisme de sync
+- workers pentru procesare separata
+- Comunicarea tinta intre servicii se face prin IP privat sau retea interna controlata.
+
+Faze de dezvoltare
+- Alpha: functionalitate > optimizare, focus pe validarea sistemelor, test cu putini jucatori.
+- Beta: stabilitate, API mai clar, modularizare mai stricta si reducerea dependintelor implicite.
+- Release: scalare, servicii externe, performanta si ecosistem matur de extensii.
+
+Distributie
+- core open-source
+- API open
+- scenarii demo gratuite
+- scenarii avansate sau premium, diferentiate prin calitate si continut
+
+Admin si securitate
+- admin mode
+- verificare OP initiala
+- sistem intern de permisiuni
+- integrare viitoare cu LuckPerms
+
+Formula finala
+- Core universal + scenarii + lume definita + AI + extensibilitate = platforma NPC AI pentru Minecraft.
+
+Configurare importanta
+- ollama.url: endpoint local Ollama.
+- ollama.model: modelul folosit la generare.
+- npc.interaction_distance: distanta maxima de interactiune.
+- npc.message_cooldown: cooldown intre mesaje.
+- npc.max_memories_per_player: limita de memorii per jucator.
+- database.filename: fisierul SQLite.
+- debug: activeaza logurile de debug.
+
+Resurse runtime
+- src/src/main/resources/plugin.yml
+- src/src/main/resources/config.yml
+- src/src/main/resources/packs/medieval.yml
+- src/src/main/resources/packs/modern.yml
+- src/src/main/resources/packs/social.yml
+
+Comanda principala
+- /ainpc
+- Aliasuri: /npc, /ai
+
+Reguli de mentenanta
+- Pastreaza acest fisier ca sursa scurta de adevar pentru arhitectura pluginului.
+- Actualizeaza-l cand se schimba structura, fluxul principal sau contractele importante.
+- Nu modifica acest fisier automat in alte task-uri fara mentionarea explicita a numelui docs.text.
