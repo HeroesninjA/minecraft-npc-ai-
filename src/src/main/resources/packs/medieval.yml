@@ -1,0 +1,387 @@
+# ========================================
+# Feature Pack: Medieval
+# Pentru setari medievale/fantastice
+# ========================================
+
+id: medieval
+name: "Medieval"
+description: "Pachet de caracteristici pentru lumi medievale si fantastice"
+addon:
+  type: "scenario"
+  version: "1.0.0"
+  primary_scenario: true
+  runtime_modes: ["standalone", "hybrid", "advanced"]
+  capabilities: ["traits", "professions", "dialogues", "topology", "scenarios"]
+
+# ==================== TRAITS ====================
+traits:
+  # Trasaturi pozitive
+  brave:
+    name: "Curajos"
+    description: "Nu se teme de pericole, gata sa infrunte orice amenintare"
+    modifiers:
+      action_scores:
+        FLEE: -30
+        ATTACK: 20
+        DEFEND: 15
+        INVESTIGATE: 10
+        HIDE: -20
+      emotions:
+        fear: -0.3
+        
+  friendly:
+    name: "Prietenos"
+    description: "Iubeste sa interactioneze cu altii si sa ajute"
+    modifiers:
+      action_scores:
+        GREET: 20
+        SOCIALIZE: 25
+        HELP: 15
+        GIVE_ITEM: 10
+        TRADE: 10
+        INSULT: -30
+        ATTACK: -20
+      emotions:
+        happiness: 0.3
+        
+  hardworking:
+    name: "Harnic"
+    description: "Mereu pregatit sa munceasca, nu sta degeaba"
+    modifiers:
+      action_scores:
+        START_WORK: 25
+        CONTINUE_WORK: 20
+        REST: -15
+        DO_NOTHING: -20
+      emotions:
+        happiness: 0.1
+        
+  wise:
+    name: "Intelept"
+    description: "Gandeste inainte sa actioneze, ofera sfaturi bune"
+    modifiers:
+      action_scores:
+        OBSERVE: 20
+        TELL_STORY: 25
+        WARN: 15
+        ATTACK: -15
+      emotions:
+        fear: -0.1
+        
+  generous:
+    name: "Generos"
+    description: "Ofera cu drag din ce are"
+    modifiers:
+      action_scores:
+        GIVE_ITEM: 30
+        HELP: 20
+        TRADE: -10
+      emotions:
+        happiness: 0.2
+
+  # Trasaturi negative
+  greedy:
+    name: "Lacom"
+    description: "Doreste sa acumuleze bogatie cu orice pret"
+    modifiers:
+      action_scores:
+        TRADE: 15
+        GIVE_ITEM: -30
+        HELP: -15
+      emotions:
+        happiness: -0.1
+        
+  coward:
+    name: "Las"
+    description: "Se teme de orice pericol"
+    modifiers:
+      action_scores:
+        FLEE: 40
+        HIDE: 30
+        ATTACK: -30
+        DEFEND: -20
+        INVESTIGATE: -25
+      emotions:
+        fear: 0.4
+        
+  lazy:
+    name: "Lenes"
+    description: "Evita munca pe cat posibil"
+    modifiers:
+      action_scores:
+        START_WORK: -30
+        CONTINUE_WORK: -25
+        REST: 35
+        DO_NOTHING: 25
+      emotions:
+        happiness: -0.1
+        
+  aggressive:
+    name: "Agresiv"
+    description: "Mereu pregatit pentru conflict"
+    modifiers:
+      action_scores:
+        ATTACK: 30
+        THREATEN: 25
+        ARGUE: 20
+        GREET: -10
+        APOLOGIZE: -25
+      emotions:
+        anger: 0.3
+        
+  suspicious:
+    name: "Suspicios"
+    description: "Nu are incredere in straini"
+    modifiers:
+      action_scores:
+        GREET: -15
+        TRADE: -20
+        OBSERVE: 20
+        WARN: 15
+      emotions:
+        fear: 0.2
+        
+  gossiper:
+    name: "Barfitor"
+    description: "Iubeste sa raspandeasca zvonuri"
+    modifiers:
+      action_scores:
+        GOSSIP: 35
+        SHARE_NEWS: 25
+        SOCIALIZE: 15
+      emotions:
+        happiness: 0.1
+
+# ==================== PROFESII ====================
+professions:
+  blacksmith:
+    name: "Fierar"
+    description: "Lucreaza metalul, creeaza arme si unelte"
+    schedule:
+      MORNING: "Aprinde focul in forja si pregateste metalul"
+      AFTERNOON: "Forjeaza unelte si arme"
+      EVENING: "Curata atelierul si verifica stocurile"
+      NIGHT: "Se odiheste acasa"
+    work_locations:
+      - "forja"
+      - "atelier"
+    tools:
+      - "ciocan"
+      - "nicovala"
+      - "clesti"
+      - "pile"
+    dialogues:
+      - "Fierul e fierbinte azi, perfect pentru lucru!"
+      - "Ai nevoie de o sabie noua? O fac in trei zile."
+      - "Metalul asta e de calitate proasta... trebuie sa gasesc alt furnizor."
+      
+  farmer:
+    name: "Fermier"
+    description: "Cultiva pamantul si creste animale"
+    schedule:
+      MORNING: "Se trezeste cu noaptea in cap, hraneste animalele"
+      AFTERNOON: "Lucreaza campurile"
+      EVENING: "Aduna recolta si pregateste pentru piata"
+      NIGHT: "Doarme devreme pentru a se trezi in zori"
+    work_locations:
+      - "camp"
+      - "grajd"
+      - "hambar"
+    tools:
+      - "sapa"
+      - "coasa"
+      - "grebla"
+      - "galeata"
+    dialogues:
+      - "Vremea e buna pentru recoltat!"
+      - "Graul creste frumos anul asta."
+      - "Sper sa nu fie seceta ca anul trecut..."
+      
+  guard:
+    name: "Garda"
+    description: "Pazeste si protejeaza comunitatea"
+    schedule:
+      MORNING: "Patruleaza prin sat"
+      AFTERNOON: "Pazeste portile sau piata"
+      EVENING: "Face runda de seara"
+      NIGHT: "Pazeste in ture sau doarme"
+    work_locations:
+      - "poarta"
+      - "turn de veghe"
+      - "cazarma"
+    tools:
+      - "sabie"
+      - "scut"
+      - "lancie"
+      - "armura"
+    dialogues:
+      - "Ai vazut ceva suspect?"
+      - "Liniste pe aici. Dar fii atent totusi."
+      - "Banditi? Am auzit de ei. Stai departe de padure noaptea."
+      
+  merchant:
+    name: "Negustor"
+    description: "Cumpara si vinde marfuri"
+    schedule:
+      MORNING: "Deschide taraba si aranjeaza marfa"
+      AFTERNOON: "Negociaza cu clientii"
+      EVENING: "Face inventarul"
+      NIGHT: "Numara profitul si planifica achizitii"
+    work_locations:
+      - "piata"
+      - "magazin"
+      - "depozit"
+    tools:
+      - "balanta"
+      - "registru"
+      - "punga de bani"
+    dialogues:
+      - "Marfa proaspata, preturi bune!"
+      - "Pentru tine, fac un pret special."
+      - "Am exact ce cauti!"
+      
+  innkeeper:
+    name: "Hangiu"
+    description: "Conduce hanul local"
+    schedule:
+      MORNING: "Curata hanul si pregateste micul dejun"
+      AFTERNOON: "Serveste clientii"
+      EVENING: "Perioada cea mai aglomerata"
+      NIGHT: "Inchide tarziu dupa ultimii clienti"
+    work_locations:
+      - "han"
+      - "carciuma"
+      - "bucatarie"
+    tools:
+      - "halba"
+      - "chei"
+      - "registru oaspeti"
+    dialogues:
+      - "Bine ai venit, calatorule! O halba de bere?"
+      - "Camera costa 10 monede pe noapte."
+      - "Am auzit povesti interesante de la calatori..."
+      
+  priest:
+    name: "Preot"
+    description: "Slujitor al bisericii"
+    schedule:
+      MORNING: "Slujba de dimineata"
+      AFTERNOON: "Ajuta comunitatea, ofera sfaturi"
+      EVENING: "Slujba de seara"
+      NIGHT: "Meditatie si rugaciune"
+    work_locations:
+      - "biserica"
+      - "capela"
+      - "cimitir"
+    tools:
+      - "carte sfanta"
+      - "lumanare"
+      - "tamaie"
+    dialogues:
+      - "Binecuvantarea fie cu tine, copile."
+      - "Biserica e deschisa pentru toti cei care cauta alinare."
+      - "Am sa ma rog pentru sufletul tau."
+      
+  healer:
+    name: "Vindecator"
+    description: "Trateaza boli si rani cu ierburi"
+    schedule:
+      MORNING: "Culege ierburi proaspete"
+      AFTERNOON: "Primeste pacienti"
+      EVENING: "Prepara potiuni si leacuri"
+      NIGHT: "Studiaza tratamente noi"
+    work_locations:
+      - "coliba"
+      - "padure"
+      - "gradina de ierburi"
+    tools:
+      - "mojar"
+      - "fiole"
+      - "ierburi uscate"
+    dialogues:
+      - "Ai o rana? Lasa-ma sa vad."
+      - "Aceasta potiune va calma durerea."
+      - "Ierburile din padure sunt cele mai puternice."
+
+# ==================== TOPOLOGII ====================
+topologies:
+  village_center:
+    name: "Sat deschis"
+    category: "PLAINS"
+    biomes:
+      - "PLAINS"
+      - "MEADOW"
+      - "SUNFLOWER_PLAINS"
+      - "CHERRY_GROVE"
+    description: "Asezare rurala activa, cu munca, schimb social si viata comunitara constanta."
+    dialogue_hints:
+      - "vorbeste despre recolta, targ si vecini"
+      - "foloseste un ton practic si comunitar"
+      - "adu in discutie zvonuri locale sau nevoi ale satului"
+    suggested_traits:
+      - "friendly"
+      - "hardworking"
+      - "gossiper"
+
+  forest_edge:
+    name: "Margine de padure"
+    category: "FOREST"
+    biomes:
+      - "FOREST"
+      - "BIRCH_FOREST"
+      - "OLD_GROWTH_BIRCH_FOREST"
+      - "DARK_FOREST"
+    description: "Zona de tranzitie intre sat si salbaticie, buna pentru avertismente si povesti."
+    dialogue_hints:
+      - "accent pe prudenta, vanatoare si drumuri nesigure"
+      - "discuta despre lemnari, animale si creaturi ascunse"
+    suggested_traits:
+      - "brave"
+      - "suspicious"
+
+  highland_watch:
+    name: "Inaltime de veghe"
+    category: "MOUNTAIN"
+    biomes:
+      - "WINDSWEPT_HILLS"
+      - "JAGGED_PEAKS"
+      - "STONY_PEAKS"
+    description: "Loc inalt, bun pentru observatie, paza si reactii rapide la pericole."
+    dialogue_hints:
+      - "vorbeste despre vizibilitate, patrule si atacuri din departare"
+      - "pastreaza un ton sobru si atent"
+    suggested_traits:
+      - "brave"
+      - "wise"
+
+# ==================== DIALOGURI GENERALE ====================
+dialogues:
+  greetings:
+    - "Salut, calatorule!"
+    - "Bine ai venit in satul nostru!"
+    - "Noroc! Ce te aduce pe aici?"
+    - "O zi buna tie!"
+    
+  farewells:
+    - "Drum bun, prietene!"
+    - "Sa ai grija de tine!"
+    - "Ne vedem curand!"
+    - "Zeii sa te ocroteasca!"
+    
+  weather_comments:
+    - "E o zi frumoasa azi!"
+    - "Sper sa nu ploua iar..."
+    - "Vremea e perfecta pentru munca la camp."
+    - "Norii aceia nu-mi plac deloc..."
+    
+  danger_warnings:
+    - "Fii atent in padure, am vazut lupi!"
+    - "Nu iesi noaptea singur!"
+    - "Am auzit de banditi pe drumul spre nord."
+    - "Pestera aia e blestemata, stai departe!"
+    
+  gossip:
+    - "Ai auzit de fierarul si sotia primarului?"
+    - "Se zice ca negustorul insala la cantar..."
+    - "Hangiul are o pivnita secreta, asa am auzit."
+    - "Vindecatoarea vorbeste cu spiritele, toti stiu asta."

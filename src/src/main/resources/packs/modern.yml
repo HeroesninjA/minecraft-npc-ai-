@@ -1,0 +1,201 @@
+# ========================================
+# Feature Pack: Modern
+# Pentru setari contemporane/moderne
+# ========================================
+
+id: modern
+name: "Modern"
+description: "Pachet de caracteristici pentru lumi moderne sau post-apocaliptice"
+addon:
+  type: "scenario"
+  version: "1.0.0"
+  primary_scenario: false
+  runtime_modes: ["standalone", "hybrid", "advanced"]
+  capabilities: ["traits", "professions", "dialogues", "topology", "scenarios"]
+
+# ==================== TRAITS ====================
+traits:
+  tech_savvy:
+    name: "Priceput la tehnologie"
+    description: "Intelege si foloseste tehnologia cu usurinta"
+    modifiers:
+      action_scores:
+        CRAFT: 20
+        INVESTIGATE: 15
+        OBSERVE: 10
+      emotions:
+        happiness: 0.1
+        
+  survivor:
+    name: "Supravietuitor"
+    description: "A invatat sa supravietuiasca in conditii grele"
+    modifiers:
+      action_scores:
+        FLEE: 15
+        HIDE: 20
+        DEFEND: 15
+        SEARCH: 20
+        EAT: -10
+      emotions:
+        fear: -0.2
+        
+  leader:
+    name: "Lider"
+    description: "Inspira si conduce pe altii"
+    modifiers:
+      action_scores:
+        SOCIALIZE: 20
+        TALK: 15
+        WARN: 10
+        GREET: 15
+        CALL_HELP: -10
+      emotions:
+        happiness: 0.2
+        fear: -0.2
+        
+  paranoid:
+    name: "Paranoid"
+    description: "Mereu alert, vede pericole peste tot"
+    modifiers:
+      action_scores:
+        OBSERVE: 30
+        HIDE: 20
+        INVESTIGATE: 15
+        GREET: -20
+        SOCIALIZE: -25
+        TRADE: -15
+      emotions:
+        fear: 0.4
+        
+  resourceful:
+    name: "Descurcaret"
+    description: "Gaseste solutii creative cu ce are la indemana"
+    modifiers:
+      action_scores:
+        CRAFT: 25
+        SEARCH: 20
+        TRADE: 15
+        INVESTIGATE: 15
+      emotions:
+        happiness: 0.15
+
+# ==================== PROFESII ====================
+professions:
+  scavenger:
+    name: "Colector"
+    description: "Cauta si colecteaza resurse utile"
+    schedule:
+      MORNING: "Planifica expeditia de cautare"
+      AFTERNOON: "Exploreaza zone noi pentru resurse"
+      EVENING: "Sorteaza si depoziteaza resursele gasite"
+      NIGHT: "Se odihneste in adapost"
+    work_locations:
+      - "ruine"
+      - "cladiri abandonate"
+      - "depozit"
+    tools:
+      - "rucsac"
+      - "lanterna"
+      - "cuțit multifuncțional"
+    dialogues:
+      - "Am gasit niste provizii interesante azi."
+      - "Stii unde mai sunt cladiri neexplorate?"
+      - "Trebuie sa fim atenti, zona asta nu e sigura."
+      
+  medic:
+    name: "Medic"
+    description: "Trateaza ranitii si bolnavii"
+    schedule:
+      MORNING: "Verifica pacientii"
+      AFTERNOON: "Trateaza cazurile urgente"
+      EVENING: "Pregateste medicamente"
+      NIGHT: "De garda pentru urgente"
+    work_locations:
+      - "infirmerie"
+      - "clinic"
+      - "adapost"
+    tools:
+      - "trusa medicala"
+      - "bandaje"
+      - "medicamente"
+    dialogues:
+      - "Arata-mi unde te doare."
+      - "Trebuie sa-ti schimb bandajul."
+      - "Medicamentele sunt pe terminate..."
+      
+  trader:
+    name: "Negustor"
+    description: "Schimba bunuri intre comunitati"
+    schedule:
+      MORNING: "Verifica stocurile"
+      AFTERNOON: "Negociaza cu clientii"
+      EVENING: "Planifica urmatoarea expeditie de schimb"
+      NIGHT: "Pazeste marfa"
+    work_locations:
+      - "piata"
+      - "depozit"
+      - "caravan"
+    tools:
+      - "balanta"
+      - "registru"
+      - "harta"
+    dialogues:
+      - "Ce ai de oferit in schimb?"
+      - "Am primit marfa rara de la sud."
+      - "Preturile cresc, resursele sunt tot mai putine."
+
+# ==================== TOPOLOGII ====================
+topologies:
+  shelter_interior:
+    name: "Adapost interior"
+    category: "INTERIOR"
+    biomes: []
+    description: "Spatiu inchis, improvizat si functional, orientat spre supravietuire si ordine."
+    dialogue_hints:
+      - "vorbeste despre stocuri, disciplina si siguranta"
+      - "accent pe resurse limitate si reguli ale adapostului"
+    suggested_traits:
+      - "resourceful"
+      - "leader"
+
+  ruined_outskirts:
+    name: "Periferie ruinata"
+    category: "PLAINS"
+    biomes:
+      - "PLAINS"
+      - "SUNFLOWER_PLAINS"
+      - "MEADOW"
+    description: "Zona expusa, cu structuri partial abandonate si risc constant."
+    dialogue_hints:
+      - "discuta despre trasee sigure, scouteri si schimb de resurse"
+      - "pastreaza un ton vigilent si pragmatic"
+    suggested_traits:
+      - "survivor"
+      - "paranoid"
+
+  service_tunnels:
+    name: "Tuneluri de serviciu"
+    category: "UNDERGROUND"
+    biomes:
+      - "LUSH_CAVES"
+      - "DRIPSTONE_CAVES"
+      - "DEEP_DARK"
+    description: "Retea subterana de trecere si ascundere, buna pentru secrete si tensiune."
+    dialogue_hints:
+      - "vorbeste despre ecou, intuneric si miscari ascunse"
+      - "foloseste replici mai scurte si prudente"
+    suggested_traits:
+      - "paranoid"
+      - "tech_savvy"
+
+# ==================== DIALOGURI GENERALE ====================
+dialogues:
+  greetings:
+    - "Hei, esti nou pe aici?"
+    - "Salut. De unde vii?"
+    - "Bine ai venit in adapost."
+    
+  danger_warnings:
+    - "Nu iesi noaptea, e prea periculos."
+    - "Zona de est e controlata de banditi."
+    - "Am auzit zgomote ciudate din subsol..."

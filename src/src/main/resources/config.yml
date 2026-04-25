@@ -1,0 +1,136 @@
+# ========================================
+# AI NPC Plugin - Configurare
+# ========================================
+
+# Setari OpenAI
+openai:
+  # Endpointul de baza pentru OpenAI API. Pentru configuratia standard lasa /v1.
+  base_url: "https://api.openai.com/v1"
+  # Cheia API OpenAI. Poate fi lasata goala daca folosesti variabila de mediu OPENAI_API_KEY.
+  api_key: ""
+  # Modelul nano recomandat pentru cost si latenta.
+  model: "gpt-5.4-nano"
+  # Timp maxim pentru conectare la OpenAI API.
+  connect_timeout: 10
+  # Timp maxim de asteptare pentru generarea raspunsului.
+  read_timeout: 120
+  # Timp maxim de trimitere a request-ului.
+  write_timeout: 30
+  # Temperatura (0.0-1.0, mai mare = mai creativ).
+  temperature: 0.7
+  # Numar maxim de tokeni in raspunsul vizibil.
+  max_output_tokens: 150
+  # Daca e false, raspunsurile nu sunt stocate de OpenAI din acest request.
+  store: false
+  # Cand API-ul da erori de conectare/autentificare, pluginul asteapta cateva secunde inainte sa incerce din nou.
+  offline_retry_seconds: 15
+  diagnostics:
+    # Loguri detaliate pentru conectare, coduri HTTP, timing si modelul configurat.
+    enabled: true
+    # Ruleaza automat o verificare a modelului la startup si la reload.
+    check_on_startup: true
+    # Logheaza sumarul promptului trimis spre model.
+    log_prompt_summary: true
+    # Logheaza un preview din raspunsul returnat de model.
+    log_response_preview: true
+
+# Setari platforma
+platform:
+  # standalone | hybrid | advanced
+  runtime_mode: "standalone"
+  # static | finite_dynamic | open_dynamic
+  world_mode: "finite_dynamic"
+  # static | evolutive | rotative
+  default_story_mode: "evolutive"
+
+# Setari NPC
+npc:
+  # Distanta maxima de interactiune (blocuri)
+  interaction_distance: 5
+  # Cooldown intre mesaje (secunde)
+  message_cooldown: 2
+  # Numarul maxim de amintiri pastrate per jucator
+  max_memories_per_player: 50
+  # Durata pana cand NPC-ul "uita" o amintire minora (zile)
+  memory_decay_days: 30
+
+# Setari emotii
+emotions:
+  # Cat de repede se schimba emotiile (0.0-1.0)
+  change_rate: 0.1
+  # Emotia se intoarce la neutral dupa X minute
+  decay_minutes: 60
+  # Afiseaza particulele emotionale
+  show_particles: true
+
+# Setari dialog
+dialog:
+  # Limba pentru raspunsuri
+  language: "ro"
+  # Prefixul mesajelor NPC in chat
+  prefix: "&6[NPC] &e"
+  # Afiseaza numele NPC-ului
+  show_name: true
+  # Permite raspunsuri cu voce (text-to-speech, necesita setup extern)
+  voice_enabled: false
+  # Daca e activ, NPC-urile pot raspunde si fara click, pe baza de proximitate
+  passive_listen_enabled: true
+  # Distanta maxima la care NPC-ul poate "auzi" chat-ul jucatorului
+  passive_listen_radius: 8
+  # Daca jucatorul este foarte aproape, cel mai apropiat NPC poate intra natural in dialog
+  auto_engage_radius: 4
+
+# Setari familie
+family:
+  # Permite NPC-urilor sa formeze familii automat
+  auto_generate: true
+  # Sansa de a avea sot/sotie (%)
+  spouse_chance: 60
+  # Numar maxim de copii
+  max_children: 4
+  # Sansa de a avea parinti in viata (%)
+  living_parents_chance: 40
+
+# Setari villageri naturali
+villagers:
+  auto_repopulate:
+    # Daca este activ, pluginul mentine satele populate cu villageri noi atunci cand exista suficiente paturi.
+    enabled: true
+    # Populatia minima pe care pluginul incearca sa o mentina intr-un sat activ.
+    min_population: 6
+    # Nu depaseste niciodata acest prag prin repopulare automata.
+    max_population: 12
+    # Cati villageri maxim pot fi generati intr-un singur ciclu.
+    max_new_per_cycle: 2
+    # Raza in care sunt cautate paturile si villagerii din jurul centrului satului.
+    scan_radius: 24
+    vertical_radius: 8
+    # Cooldown intre doua cicluri de repopulare pentru acelasi sat.
+    cooldown_seconds: 180
+
+# Setari baza de date
+database:
+  # Tipul bazei de date (sqlite)
+  type: "sqlite"
+  # Numele fisierului bazei de date
+  filename: "ainpc_data.db"
+
+# World Admin
+world_admin:
+  enabled: true
+  # Regiunile si nodurile sunt definite manual pentru harti preconstruite.
+  regions: {}
+
+# Mesaje personalizate
+messages:
+  no_permission: "&cNu ai permisiunea sa faci asta!"
+  npc_created: "&aNPC-ul &e%name% &aa fost creat!"
+  npc_deleted: "&cNPC-ul &e%name% &ca fost sters!"
+  npc_not_found: "&cNPC-ul nu a fost gasit!"
+  too_far: "&cEsti prea departe de NPC pentru a vorbi!"
+  cooldown: "&cAsteapta putin inainte sa vorbesti din nou!"
+  ai_error: "&cEroare la generarea raspunsului. Incearca din nou!"
+  openai_unavailable: "&cServiciul OpenAI nu este disponibil sau nu este configurat corect."
+
+# Debug
+debug: false

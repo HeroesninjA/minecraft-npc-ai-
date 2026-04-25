@@ -1,0 +1,301 @@
+# ========================================
+# Addon Scenario: Medieval Quest
+# Primul scenariu principal livrat ca addon separat
+# ========================================
+
+id: medieval_quest
+name: "Medieval Quest"
+description: "Scenariu principal medieval orientat pe misiuni locale, relicve pierdute si intrigi de sat."
+addon:
+  type: "scenario"
+  version: "1.0.0"
+  primary_scenario: true
+  runtime_modes: ["standalone", "hybrid", "advanced"]
+  capabilities: ["traits", "professions", "dialogues", "scenarios"]
+  dependencies: ["medieval", "social"]
+
+traits:
+  honorable:
+    name: "Onorabil"
+    description: "Isi respecta cuvantul si actioneaza cu demnitate."
+    modifiers:
+      action_scores:
+        HELP: 18
+        DEFEND: 14
+        TRADE: -6
+      emotions:
+        trust: 0.2
+
+  duty_bound:
+    name: "Datornic"
+    description: "Pune datoria fata de sat si ordine mai presus de confort."
+    modifiers:
+      action_scores:
+        PATROL: 25
+        DEFEND: 18
+        REST: -10
+      emotions:
+        anticipation: 0.15
+
+  cunning:
+    name: "Siret"
+    description: "Gaseste mereu o ruta ascunsa sau o schema avantajoasa."
+    modifiers:
+      action_scores:
+        INVESTIGATE: 18
+        TRADE: 12
+        GOSSIP: 10
+      emotions:
+        trust: -0.1
+
+  devout:
+    name: "Cucernic"
+    description: "Cauta sens in semne, relicve si ritualuri vechi."
+    modifiers:
+      action_scores:
+        WARN: 12
+        HELP: 14
+        TELL_STORY: 18
+      emotions:
+        trust: 0.1
+
+professions:
+  blacksmith:
+    name: "Fierar"
+    description: "Faureste arme, potcoave si piese necesare pentru orice expeditie."
+    aliases:
+      - "fierar"
+      - "blacksmith"
+      - "armorer"
+    suggested_traits:
+      - "hardworking"
+      - "honorable"
+      - "brave"
+    work_locations:
+      - "forja"
+      - "atelier"
+    tools:
+      - "ciocan"
+      - "nicovala"
+      - "clesti"
+    dialogues:
+      - "Nu pleci intr-o misiune serioasa fara fier bun."
+      - "Daca relicva e reala, o sa ai nevoie de otel pe masura."
+
+  guard:
+    name: "Garda"
+    description: "Vegheaza satul, escorteaza drumurile si raspunde la pericole."
+    aliases:
+      - "guard"
+      - "soldat"
+      - "garda"
+    suggested_traits:
+      - "duty_bound"
+      - "brave"
+      - "loyal"
+    work_locations:
+      - "poarta"
+      - "turn de veghe"
+      - "drumul de iesire"
+    tools:
+      - "sabie"
+      - "scut"
+      - "lancie"
+    dialogues:
+      - "Drumul spre nord nu mai e sigur dupa lasarea serii."
+      - "Daca pleci dupa relicva, macar spune cuiva incotro mergi."
+
+  innkeeper:
+    name: "Hangiu"
+    description: "Asculta zvonuri, aduna calatori si stie ce lipseste satului."
+    aliases:
+      - "hangiu"
+      - "innkeeper"
+      - "hangiul"
+    suggested_traits:
+      - "friendly"
+      - "gossiper"
+      - "charismatic"
+    work_locations:
+      - "han"
+      - "bucatarie"
+      - "sala mare"
+    tools:
+      - "halba"
+      - "chei"
+      - "registru"
+    dialogues:
+      - "Toate zvonurile bune trec mai intai pe la han."
+      - "Calatorii au vorbit iar despre o cripta uitata la marginea dealurilor."
+
+  healer:
+    name: "Vindecator"
+    description: "Pregateste leacuri, potoli rani si citeste semnele naturii."
+    aliases:
+      - "vindecator"
+      - "healer"
+      - "alchimist"
+    suggested_traits:
+      - "wise"
+      - "empathetic"
+      - "devout"
+    work_locations:
+      - "coliba"
+      - "gradina de ierburi"
+      - "marginea padurii"
+    tools:
+      - "mojar"
+      - "ierburi uscate"
+      - "fiole"
+    dialogues:
+      - "Relicvele vechi nu aduc doar aur, uneori aduc si blesteme."
+      - "Ia leacul asta daca te intorci prin mlastini sau ruine."
+
+  priest:
+    name: "Preot"
+    description: "Pazeste traditiile si cunoaste legendele relicvelor sacre."
+    aliases:
+      - "preot"
+      - "cleric"
+      - "priest"
+    suggested_traits:
+      - "wise"
+      - "devout"
+      - "honorable"
+    work_locations:
+      - "biserica"
+      - "capela"
+      - "cripta"
+    tools:
+      - "carte sfanta"
+      - "lumanare"
+      - "sigiliu"
+    dialogues:
+      - "Nu orice relicva trebuie scoasa din locul ei."
+      - "Unii cauta comoara, dar putini inteleg pretul ei."
+
+  merchant:
+    name: "Negustor"
+    description: "Cumpara, vinde si finanteaza expeditii daca vede profit."
+    aliases:
+      - "negustor"
+      - "merchant"
+    suggested_traits:
+      - "charismatic"
+      - "cunning"
+      - "greedy"
+    work_locations:
+      - "piata"
+      - "taraba"
+      - "depozit"
+    tools:
+      - "balanta"
+      - "punga de bani"
+      - "registru"
+    dialogues:
+      - "Daca relicva exista, cineva va plati bine pentru ea."
+      - "Nimeni nu risca fara un castig pe masura."
+
+  farmer:
+    name: "Fermier"
+    description: "Tine satul in viata si observa primul orice schimbare din imprejurimi."
+    aliases:
+      - "fermier"
+      - "farmer"
+    suggested_traits:
+      - "hardworking"
+      - "friendly"
+      - "loyal"
+    work_locations:
+      - "camp"
+      - "hambar"
+      - "grajd"
+    tools:
+      - "sapa"
+      - "coasa"
+      - "grebla"
+    dialogues:
+      - "Pamantul spune cand ceva e ingropat prea adanc."
+      - "Animalele se agita de cate ori cineva se apropie de dealul vechi."
+
+dialogues:
+  quest_hooks:
+    - "Satul are nevoie de cineva destul de curajos sa cerceteze ruinele."
+    - "Am auzit iarasi zvonuri despre relicva pierduta a capelei."
+    - "Cineva trebuie sa afle cine rascoleste noaptea mormintele vechi."
+
+scenarios:
+  village_relic_hunt:
+    name: "Medieval Quest"
+    description: "Un localnic cheama jucatorul intr-o misiune despre o relicva veche, drumuri periculoase si interese ascunse."
+    base_type: "QUEST"
+    trigger_probability: 0.12
+    min_npcs: 3
+    requires_player: true
+    replace_base_type: true
+    hint: "Cativa localnici par sa te masoare din priviri, ca si cum ar avea nevoie de un aventurier."
+    preferred_topologies:
+      - "village_center"
+      - "forest_edge"
+      - "highland_watch"
+    narrative_hints:
+      - "vorbeste despre relicve, drumuri uitate, datorie si rasplata"
+      - "pastreaza tonul medieval, practic si usor misterios"
+      - "satul pare mic, dar fiecare martor stie cate un detaliu util"
+    phases:
+      INTRODUCTION: "Un NPC deschide discutia si explica pericolul sau lipsa relicvei."
+      ACCEPTANCE: "Jucatorul este rugat sa accepte misiunea si primeste primele indicii."
+      JOURNEY: "Ajutoarele ofera provizii, arme, zvonuri sau avertismente."
+      COMPLICATION: "Apare un martor contradictoriu ori un antagonist cu interese proprii."
+      COMPLETION: "Satul primeste o concluzie: relicva recuperata, ascunsa sau declarata periculoasa."
+    roles:
+      QUEST_GIVER:
+        description: "Patronul misiunii sau vocea satului."
+        preferred_professions:
+          - "priest"
+          - "innkeeper"
+          - "merchant"
+          - "blacksmith"
+        preferred_traits:
+          - "wise"
+          - "friendly"
+          - "honorable"
+          - "charismatic"
+          - "devout"
+      HERO:
+        description: "Jucatorul care preia misiunea."
+        player_role: true
+      HELPER:
+        description: "Sprijin local pentru aventura."
+        preferred_professions:
+          - "guard"
+          - "healer"
+          - "blacksmith"
+          - "farmer"
+        preferred_traits:
+          - "brave"
+          - "loyal"
+          - "hardworking"
+          - "duty_bound"
+      ANTAGONIST:
+        description: "Persoana care ascunde, vinde sau manipuleaza adevarul."
+        optional: true
+        preferred_professions:
+          - "merchant"
+          - "guard"
+        preferred_traits:
+          - "greedy"
+          - "cunning"
+          - "suspicious"
+          - "aggressive"
+      WITNESS:
+        description: "Martor care a vazut ceva util."
+        optional: true
+        preferred_professions:
+          - "innkeeper"
+          - "farmer"
+          - "healer"
+        preferred_traits:
+          - "gossiper"
+          - "friendly"
+          - "wise"
